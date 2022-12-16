@@ -54,3 +54,27 @@ func ReadUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(user)
 }
+
+func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
+	// get the userId from path param!
+	varsMap := mux.Vars(r)
+
+	// convert string to int
+	userId, err := strconv.Atoi(varsMap["userId"])
+	if err != nil {
+		errors.NewBadRequestError("userId must be a number").HandleError(w)
+		return
+	}
+
+	// userId is valid and it's an int
+	restErr := services.DeleteUser(userId)
+	if restErr != nil {
+		restErr.HandleError(w)
+
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusNoContent)
+
+}

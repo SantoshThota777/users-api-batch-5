@@ -17,3 +17,7 @@ func CreateUser(u users.User) (*users.User, *errors.RestErr) {
 func GetUser(userId int) (*users.User, *errors.RestErr) {
 	return users.GetUserById(userId)
 }
+
+func DeleteUser(userId int) *errors.RestErr {
+	return users.DeleteUserById(userId)
+}

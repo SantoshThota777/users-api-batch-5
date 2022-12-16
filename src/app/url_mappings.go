@@ -13,4 +13,5 @@ func mapUrls() {
 	// create user
 	router.HandleFunc("/users", user.CreateUserHandler).Methods("POST")
 	router.HandleFunc("/users/{userId}", user.ReadUserHandler).Methods("GET")
+	router.HandleFunc("/users/{userId}", user.DeleteUserHandler).Methods("DELETE")
 }

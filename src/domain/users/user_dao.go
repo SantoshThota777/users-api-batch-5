@@ -28,3 +28,13 @@ func GetUserById(id int) (*User, *errors.RestErr) {
 
 	return usersDB[id], nil
 }
+
+func DeleteUserById(id int) *errors.RestErr {
+	//check user exist
+	if usersDB[id] == nil {
+		return errors.NewNotFoundError(fmt.Sprintf("User with id %d not found", id))
+	}
+	// if existed delete user
+	delete(usersDB, id)
+	return nil
+}
