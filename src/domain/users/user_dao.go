@@ -38,3 +38,12 @@ func DeleteUserById(id int) *errors.RestErr {
 	delete(usersDB, id)
 	return nil
 }
+
+func GetAllUsers() (map[int]*User, *errors.RestErr) {
+
+	if len(usersDB) == 0 {
+		return nil, errors.NewNotFoundError(fmt.Sprintf("No Users Exist"))
+	}
+
+	return usersDB, nil
+}

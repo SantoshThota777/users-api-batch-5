@@ -12,11 +12,15 @@ http://localhost:8080/users/574dfhd
 POST http://localhost:8080/users
 
 {
-    "first_name" : "Rajesh",
-    "last_name": "Reddy",
-    "id": 1,
+    "first_name" : "Rajesh1",
+    "last_name": "Reddy1",
+    "id": 3,
     "email_id": "rajesh@test.com"
 }
 
 ### Delete User by id
-DELETE http://localhost:8080/users/1
+DELETE http://localhost:8080/users/2
+
+
+### Get ALL Users
+http://localhost:8080/users

@@ -78,3 +78,18 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 
 }
+
+func GetAllUserHandler(w http.ResponseWriter, r *http.Request) {
+
+	// List all users
+	user, restErr := services.GetAllUsers()
+	if restErr != nil {
+		restErr.HandleError(w)
+
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(user)
+}

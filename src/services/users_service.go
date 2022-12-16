@@ -21,3 +21,7 @@ func GetUser(userId int) (*users.User, *errors.RestErr) {
 func DeleteUser(userId int) *errors.RestErr {
 	return users.DeleteUserById(userId)
 }
+
+func GetAllUsers() (map[int]*users.User, *errors.RestErr) {
+	return users.GetAllUsers()
+}
