@@ -18,15 +18,20 @@ RESTFul webservice developed using Go
 - Clone the repository using ssh url (With Ssh key configured in your machine)
 
 - Get all the packages being used
-    ``` Shell
-        go mod download
-    ```
+  ``` Shell
+  go mod download
+  ```
 
 - To run the program
-    ``` Shell
-    go run .\src\main.go
-    ```
+  ``` Shell
+  go run .\src\main.go
+  ```
 
 - Download the `REST Client` extention for VSCode
 
 - Validate the end points using `./http_client/samples.http`
+
+
+## Assignment-1
+
+- Add an endpoint to delete the user by id from userDB (in-memory map)

@@ -1,2 +1,22 @@
 // Ping Request
 http://localhost:8080/ping
+
+
+### Read user by id
+http://localhost:8080/users/1
+
+### Read user by id - invalid number
+http://localhost:8080/users/574dfhd
+
+### Create User
+POST http://localhost:8080/users
+
+{
+    "first_name" : "Rajesh",
+    "last_name": "Reddy",
+    "id": 1,
+    "email_id": "rajesh@test.com"
+}
+
+### Delete User by id
+DELETE http://localhost:8080/users/1
