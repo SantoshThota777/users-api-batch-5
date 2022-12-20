@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/rajesh4b8/users-api-batch-5/src/domain/users"
 	"github.com/rajesh4b8/users-api-batch-5/src/services"
+	emailutils "github.com/rajesh4b8/users-api-batch-5/src/utils/email_validation_utils"
 	"github.com/rajesh4b8/users-api-batch-5/src/utils/errors"
 )
 
@@ -22,6 +23,13 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	// You can have a validator
 	// something like validator.Validate(user)
+
+	// Check if emaild is valid?
+	// TODO: Validate the email id and return 400 error if not valid
+	if emailerr := emailutils.ValidateUserEmail(user.EmaildId); emailerr != nil {
+		errors.NewBadRequestError(emailerr).HandleError(w)
+		return
+	}
 
 	u, restErr := services.CreateUser(user)
 	if restErr != nil {
