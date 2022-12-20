@@ -6,6 +6,10 @@ import (
 )
 
 func CreateUser(u users.User) (*users.User, *errors.RestErr) {
+	// Validate the input for user
+	// Check if emaild is valid?
+	// TODO: Validate the email id and return 400 error if not valid
+
 	restErr := u.Save()
 	if restErr != nil {
 		return nil, restErr

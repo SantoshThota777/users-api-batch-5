@@ -20,6 +20,9 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// You can have a validator
+	// something like validator.Validate(user)
+
 	u, restErr := services.CreateUser(user)
 	if restErr != nil {
 		restErr.HandleError(w)
