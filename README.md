@@ -20,7 +20,8 @@ RESTFul webservice developed using Go
 - Install Docker to run the postgres DB as a container
 
 - Spin up the DB container by using
-  ``` Shell
+
+  ```Shell
   docker-compose up
   ```
 
@@ -29,19 +30,20 @@ RESTFul webservice developed using Go
 - Create the table using the scripts in `./db`
 
 - Get all the packages being used
-  ``` Shell
+
+  ```Shell
   go mod download
   ```
 
 - To run the program
-  ``` Shell
+
+  ```Shell
   go run .\src\main.go
   ```
 
 - Download the `REST Client` extention for VSCode
 
 - Validate the end points using `./http_client/samples.http`
-
 
 ## Assignment-1
 
