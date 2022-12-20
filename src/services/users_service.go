@@ -22,6 +22,10 @@ func DeleteUser(userId int) *errors.RestErr {
 	return users.DeleteUserById(userId)
 }
 
-func GetAllUsers() (map[int]*users.User, *errors.RestErr) {
+func GetAllUsers() ([]users.User, *errors.RestErr) {
 	return users.GetAllUsers()
+}
+
+func UpdateUser(userId int, updatedUser *users.User) *errors.RestErr {
+	return users.UpdateUserById(userId, updatedUser)
 }

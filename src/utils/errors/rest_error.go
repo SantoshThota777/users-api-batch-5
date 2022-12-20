@@ -14,6 +14,7 @@ type RestErr struct {
 func (err *RestErr) HandleError(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(err.Status)
+
 	json.NewEncoder(w).Encode(err)
 }
 

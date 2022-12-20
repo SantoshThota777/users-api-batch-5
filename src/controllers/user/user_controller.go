@@ -2,12 +2,14 @@ package user
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/rajesh4b8/users-api-batch-5/src/domain/users"
 	"github.com/rajesh4b8/users-api-batch-5/src/services"
+	emailutils "github.com/rajesh4b8/users-api-batch-5/src/utils/email_validation_util"
 	"github.com/rajesh4b8/users-api-batch-5/src/utils/errors"
 )
 
@@ -17,6 +19,14 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// Unable to parse the request body
 		errors.NewBadRequestError("Request body is not a valid json").HandleError(w)
+		return
+	}
+
+	// Check if emaild is valid?
+	// TODO: Validate the email id and return 400 error if not valid
+	if email_err := emailutils.ValidateUserEmail(user.EmaildId); email_err != nil {
+		fmt.Println(email_err)
+		errors.NewBadRequestError(email_err.Error()).HandleError(w)
 		return
 	}
 
@@ -82,7 +92,7 @@ func DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
 func GetAllUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	// List all users
-	user, restErr := services.GetAllUsers()
+	users, restErr := services.GetAllUsers()
 	if restErr != nil {
 		restErr.HandleError(w)
 
@@ -91,5 +101,37 @@ func GetAllUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(user)
+	json.NewEncoder(w).Encode(users)
+}
+
+func UpdateUserHandler(w http.ResponseWriter, r *http.Request) {
+	// get the userId from path param!
+	varsMap := mux.Vars(r)
+
+	// convert string to int
+	userId, err := strconv.Atoi(varsMap["userId"])
+	if err != nil {
+		errors.NewBadRequestError("userId must be a number").HandleError(w)
+		return
+	}
+
+	var updatedUser users.User
+	err1 := json.NewDecoder(r.Body).Decode(&updatedUser)
+	if err1 != nil {
+		// Unable to parse the request body
+		errors.NewBadRequestError("Request body is not a valid json").HandleError(w)
+		return
+	}
+	fmt.Println("update user: ", userId, updatedUser)
+	// userId is valid and it's an int
+	restErr := services.UpdateUser(userId, &updatedUser)
+	if restErr != nil {
+		restErr.HandleError(w)
+
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
 }

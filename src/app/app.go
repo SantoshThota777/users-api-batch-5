@@ -14,7 +14,7 @@ var (
 func StartApplication() {
 	mapUrls()
 
-	err := http.ListenAndServe("127.0.0.1:8080", router)
+	err := http.ListenAndServe("127.0.0.1:8081", router)
 	if err != nil {
 		log.Fatal("Something wrong starting the service", err)
 	}

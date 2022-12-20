@@ -39,11 +39,26 @@ func DeleteUserById(id int) *errors.RestErr {
 	return nil
 }
 
-func GetAllUsers() (map[int]*User, *errors.RestErr) {
+func GetAllUsers() ([]User, *errors.RestErr) {
 
 	if len(usersDB) == 0 {
 		return nil, errors.NewNotFoundError(fmt.Sprintf("No Users Exist"))
 	}
 
-	return usersDB, nil
+	users_slice := make([]User, 0, len(usersDB))
+	for _, val := range usersDB {
+		users_slice = append(users_slice, *val)
+	}
+	return users_slice, nil
+}
+
+func UpdateUserById(id int, newUserData *User) *errors.RestErr {
+	//check user exist
+	if usersDB[id] == nil {
+		return errors.NewNotFoundError(fmt.Sprintf("User with id %d not found", id))
+	}
+	// if existed update user
+	usersDB[id] = newUserData
+
+	return nil
 }
