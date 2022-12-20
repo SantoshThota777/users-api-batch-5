@@ -14,8 +14,8 @@ POST http://localhost:8080/users
 {
     "first_name" : "Rajesh",
     "last_name": "Reddy",
-    "id": 1,
-    "email_id": "rajesh@test.com"
+    "id": 2,
+    "email_id": "2658658565"
 }
 
 ### Delete User by id

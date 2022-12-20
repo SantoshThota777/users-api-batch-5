@@ -2,8 +2,8 @@ package users
 
 import (
 	"fmt"
-	"time"
 
+	dateutils "github.com/rajesh4b8/users-api-batch-5/src/utils/date_utils"
 	"github.com/rajesh4b8/users-api-batch-5/src/utils/errors"
 )
 
@@ -15,7 +15,8 @@ func (user *User) Save() *errors.RestErr {
 	if usersDB[user.Id] != nil {
 		return errors.NewBadRequestError(fmt.Sprintf("User with id %d already exists!", user.Id))
 	}
-	user.DateCreated = time.Now().String()
+
+	user.DateCreated = dateutils.TimeNow()
 	usersDB[user.Id] = user
 
 	return nil

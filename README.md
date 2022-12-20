@@ -17,6 +17,17 @@ RESTFul webservice developed using Go
 
 - Clone the repository using ssh url (With Ssh key configured in your machine)
 
+- Install Docker to run the postgres DB as a container
+
+- Spin up the DB container by using
+  ``` Shell
+  docker-compose up
+  ```
+
+- Install any SQL client to work with DB, ex: PgAdmin4
+
+- Create the table using the scripts in `./db`
+
 - Get all the packages being used
   ``` Shell
   go mod download
