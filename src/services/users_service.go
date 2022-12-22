@@ -5,7 +5,19 @@ import (
 	"github.com/rajesh4b8/users-api-batch-5/src/utils/errors"
 )
 
-func CreateUser(u users.User) (*users.User, *errors.RestErr) {
+func NewUserService() UserServiceInterface {
+	return new(userService)
+}
+
+type UserServiceInterface interface {
+	CreateUser(users.User) (*users.User, *errors.RestErr)
+	GetUser(int) (*users.User, *errors.RestErr)
+}
+
+type userService struct {
+}
+
+func (s userService) CreateUser(u users.User) (*users.User, *errors.RestErr) {
 	// Validate the input for user
 	// Check if emaild is valid?
 	// TODO: Validate the email id and return 400 error if not valid
@@ -18,6 +30,6 @@ func CreateUser(u users.User) (*users.User, *errors.RestErr) {
 	return &u, nil
 }
 
-func GetUser(userId int) (*users.User, *errors.RestErr) {
+func (s userService) GetUser(userId int) (*users.User, *errors.RestErr) {
 	return users.GetUserById(userId)
 }

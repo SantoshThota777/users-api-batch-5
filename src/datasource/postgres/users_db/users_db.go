@@ -3,9 +3,9 @@ package usersdb
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/lib/pq"
+	"github.com/rajesh4b8/users-api-batch-5/src/logger"
 )
 
 const (
@@ -17,10 +17,12 @@ const (
 
 var (
 	Client *sql.DB
+	log    = logger.GetLogger()
 )
 
 // init() is a built in function, which will be called when package is  imported for the first time
 func init() {
+
 	datasource := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable",
 		username,
 		password,
@@ -31,13 +33,14 @@ func init() {
 	var err error
 	Client, err = sql.Open("postgres", datasource)
 	if err != nil {
-		log.Fatal("Something wrong with DB!", err)
+		log.Error("Something wrong with DB! " + err.Error())
 		panic(err)
 	}
 
 	if err := Client.Ping(); err != nil {
-		log.Fatal("DB connection failed!", err)
+		log.Error("DB connection failed!" + err.Error())
+		panic(err)
 	}
 
-	fmt.Println("DB connection successful!")
+	log.Info("DB connection successful!")
 }
